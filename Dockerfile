@@ -6,8 +6,7 @@ USER root
 
 RUN apt-get update && apt-get install -y openjdk-11-jre-headless openjdk-11-jdk-headless ca-certificates-java curl
 
-# install Hadoop
-#ENV JAVA_HOME "/usr/lib/jvm/default-java"
+# INSTALL APACHE HADOOP
 ENV JAVA_HOME "/usr/lib/jvm/java-11-openjdk-amd64"
 ARG HADOOP_VERSION="3.2.2"
 ENV HADOOP_HOME "/opt/hadoop"
@@ -21,7 +20,7 @@ ENV HADOOP_OPTS "$HADOOP_OPTS -Djava.library.path=${HADOOP_HOME}/lib"
 ENV HADOOP_COMMON_LIB_NATIVE_DIR "${HADOOP_HOME}/lib/native"
 ENV YARN_CONF_DIR "${HADOOP_HOME}/etc/hadoop"
 
-# install Spark
+# INSTALL APACHE SPARK
 ARG SPARK_VERSION="3.1.1"
 ARG PY4J_VERSION="0.10.9"
 ENV SPARK_HOME "/opt/spark"
@@ -45,6 +44,7 @@ ENV PYSPARK_PYTHON "/usr/local/bin/python"
 ENV PYTHONPATH "${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-${PY4J_VERSION}-src.zip:${PYTHONPATH}"
 ENV SPARK_OPTS "--driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info"
 
+# INSTALL YOUR OWN LIBS
 RUN pip install pyspark==3.1.1
 RUN pip install findspark
 RUN pip install xlrd
