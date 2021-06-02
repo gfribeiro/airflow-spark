@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y openjdk-11-jre-headless openjdk-11-jdk-
 
 # INSTALL APACHE HADOOP
 ENV JAVA_HOME "/usr/lib/jvm/java-11-openjdk-amd64"
-ARG HADOOP_VERSION="3.2.2"
+ARG HADOOP_VERSION="3.2.1"
 ENV HADOOP_HOME "/opt/hadoop"
 RUN curl https://archive.apache.org/dist/hadoop/core/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz \
     | tar xz -C /opt && mv /opt/hadoop-${HADOOP_VERSION} ${HADOOP_HOME}
@@ -21,7 +21,7 @@ ENV HADOOP_COMMON_LIB_NATIVE_DIR "${HADOOP_HOME}/lib/native"
 ENV YARN_CONF_DIR "${HADOOP_HOME}/etc/hadoop"
 
 # INSTALL APACHE SPARK
-ARG SPARK_VERSION="3.1.1"
+ARG SPARK_VERSION="3.0.0"
 ARG PY4J_VERSION="0.10.9"
 ENV SPARK_HOME "/opt/spark"
 RUN curl https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
@@ -45,7 +45,7 @@ ENV PYTHONPATH "${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-${PY4J_VERSIO
 ENV SPARK_OPTS "--driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info"
 
 # INSTALL YOUR OWN LIBS
-RUN pip install pyspark==3.1.1
+RUN pip install pyspark==3.0.0
 RUN pip install findspark
 RUN pip install xlrd
 RUN pip install azure-datalake-store
